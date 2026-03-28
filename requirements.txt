@@ -1,0 +1,5 @@
+numpy        # dynamic array and measurements
+pygame       # design frame
+flake8       # python norm
+tqdm         # progress bar on training sessions
+matplotlib   # graphs
