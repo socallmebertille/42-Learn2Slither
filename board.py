@@ -96,6 +96,7 @@ class Board:
 
 if __name__ == "__main__":
     keys = {'w': 'UP', 's': 'DOWN', 'a': 'LEFT', 'd': 'RIGHT'}
+    GAME_OVER = ('WALL', 'SELF', 'ZERO_LENGTH')
     board = Board()
     while True:
         board.display()
@@ -109,6 +110,6 @@ if __name__ == "__main__":
             continue
         event = board.move(keys[key])
         print(event)
-        if event != 'MOVE':
+        if event in GAME_OVER:
             print("Game over")
             break
