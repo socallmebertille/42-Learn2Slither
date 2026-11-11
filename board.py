@@ -95,7 +95,16 @@ class Board:
 
 
 if __name__ == "__main__":
+    keys = {'w': 'UP', 's': 'DOWN', 'a': 'LEFT', 'd': 'RIGHT'}
     board = Board()
-    board.display()
-    print(board.move('UP'))
-    board.display()
+    while True:
+        board.display()
+        key = input("Direction (w/a/s/d) : ")
+        if key not in keys:
+            print("Invalid key. Use w/a/s/d for up/left/down/right.")
+            continue
+        event = board.move(keys[key])
+        print(event)
+        if event != 'MOVE':
+            print("Game over")
+            break
