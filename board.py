@@ -92,7 +92,7 @@ class Board:
         if position in self.snake:
             return 'SELF'
         self.snake.insert(0, position)  # In every case, the head moves forward
-        match self.board[position]:
+        match cell:
             case 'G':
                 self.green_apples.remove(position)
                 self._place_items()
@@ -103,6 +103,7 @@ class Board:
                 self.snake.pop()  # The snake shrinks
                 if len(self.snake) == 0:
                     return 'ZERO_LENGTH'
+                self._place_items()
                 self.red_apple = self._spawn_apple()
                 self._place_items()
                 return 'RED'
