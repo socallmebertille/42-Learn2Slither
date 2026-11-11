@@ -86,10 +86,26 @@ class Board:
         position = (i + di, j + dj)
         if not (0 <= position[0] < self.size and 0 <= position[1] < self.size):
             return 'WALL'
-        self.snake.pop()
+        cell = self.board[position]
+        if cell != 'G':  # The tail moves forward, except when the snake grows
+            self.snake.pop()
         if position in self.snake:
             return 'SELF'
-        self.snake.insert(0, position)
+        self.snake.insert(0, position)  # In every case, the head moves forward
+        match self.board[position]:
+            case 'G':
+                self.green_apples.remove(position)
+                self._place_items()
+                self.green_apples.append(self._spawn_apple())
+                self._place_items()
+                return 'GREEN'
+            case 'R':
+                self.snake.pop()  # The snake shrinks
+                if len(self.snake) == 0:
+                    return 'ZERO_LENGTH'
+                self.red_apple = self._spawn_apple()
+                self._place_items()
+                return 'RED'
         self._place_items()
         return 'MOVE'
 
