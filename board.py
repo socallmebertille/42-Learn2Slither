@@ -4,6 +4,13 @@ import numpy as np
 
 
 class Board:
+    DIRECTIONS = {
+        'UP': (-1, 0),
+        'DOWN': (1, 0),
+        'LEFT': (0, -1),
+        'RIGHT': (0, 1),
+    }
+
     def __init__(self):
         self.size = 10
         self.snake = []
@@ -43,7 +50,7 @@ class Board:
         while len(self.snake) < 3:
             candidates = [
                 cell
-                #  -1 : last element of the list
+                # -1 : last element of the list
                 for cell in self._neighbors(self.snake[-1])
                 if cell not in self.snake
             ]
@@ -72,7 +79,24 @@ class Board:
         for row in self.board:
             print(' '.join(row))
 
+    def move(self, direction):
+        """Move the snake one cell. Return what happened."""
+        position = None
+        di, dj = self.DIRECTIONS[direction]
+        i, j = self.snake[0]
+        position = (i + di, j + dj)
+        if not (0 <= position[0] < self.size and 0 <= position[1] < self.size):
+            return 'WALL'
+        self.snake.pop()
+        if position in self.snake:
+            return 'SELF'
+        self.snake.insert(0, position)
+        self._place_items()
+        return 'MOVE'
+
 
 if __name__ == "__main__":
     board = Board()
+    board.display()
+    print(board.move('UP'))
     board.display()
