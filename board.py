@@ -81,7 +81,6 @@ class Board:
 
     def move(self, direction):
         """Move the snake one cell. Return what happened."""
-        position = None
         di, dj = self.DIRECTIONS[direction]
         i, j = self.snake[0]
         position = (i + di, j + dj)
