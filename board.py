@@ -43,7 +43,8 @@ class Board:
         while len(self.snake) < 3:
             candidates = [
                 cell
-                for cell in self._neighbors(self.snake[-1]) # -1 : last element of the list
+                #  -1 : last element of the list
+                for cell in self._neighbors(self.snake[-1])
                 if cell not in self.snake
             ]
             self.snake.append(random.choice(candidates))
