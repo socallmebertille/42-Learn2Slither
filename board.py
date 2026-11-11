@@ -99,7 +99,11 @@ if __name__ == "__main__":
     board = Board()
     while True:
         board.display()
-        key = input("Direction (w/a/s/d) : ")
+        try:
+            key = input("Direction (w/a/s/d) : ")
+        except (EOFError, KeyboardInterrupt):
+            print("\nBye")
+            break
         if key not in keys:
             print("Invalid key. Use w/a/s/d for up/left/down/right.")
             continue
